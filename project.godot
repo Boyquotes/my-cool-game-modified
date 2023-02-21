@@ -17,6 +17,8 @@ config/icon="res://icon.svg"
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 
 [input]
@@ -82,7 +84,9 @@ run={
 
 [layer_names]
 
+3d_physics/layer_1="Player"
 3d_physics/layer_2="Floor"
+3d_physics/layer_3="Wall"
 
 [rendering]
 
