@@ -17,12 +17,14 @@ albedo_color = Color(1, 0.831373, 0.352941, 1)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_o4wmn")
-_sensitivity = 0.1
-_max_camera_angle = 60.0
-_min_camera_angle = -60.0
-_speed = 5.0
-_jump_velocity = 20.0
-_gravity_acceleration = 0.2
+mouse_sensitivity = 0.25
+max_camera_angle = 60.0
+min_camera_angle = -60.0
+speed = 5.0
+jump_velocity = 13.0
+run_multiplier = 2.0
+gravity_acceleration = 3.0
+turn_speed = 10.0
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
