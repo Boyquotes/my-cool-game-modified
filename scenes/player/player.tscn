@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://0cmhrw8alqiy"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_o4wmn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jxeii"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yksye"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4rkw"]
+albedo_color = Color(0.643137, 0.372549, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_joniw"]
+size = Vector3(0.442, 0.149, 0.525)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2bftd"]
+albedo_color = Color(1, 0.831373, 0.352941, 1)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_o4wmn")
+_sensitivity = 0.1
+_max_camera_angle = 60.0
+_min_camera_angle = -60.0
+_speed = 5.0
+_jump_velocity = 20.0
+_gravity_acceleration = 0.2
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_jxeii")
+
+[node name="Mesh" type="MeshInstance3D" parent="Collider"]
+mesh = SubResource("CapsuleMesh_yksye")
+surface_material_override/0 = SubResource("StandardMaterial3D_c4rkw")
+
+[node name="Eyes" type="MeshInstance3D" parent="Collider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.486318, -0.574394)
+mesh = SubResource("BoxMesh_joniw")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_2bftd")
+
+[node name="CameraRig" type="Node3D" parent="."]
+
+[node name="HCam" type="Node3D" parent="CameraRig"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47028, 0)
+
+[node name="VCam" type="Node3D" parent="CameraRig/HCam"]
+
+[node name="SpringArm" type="SpringArm3D" parent="CameraRig/HCam/VCam"]
+transform = Transform3D(1, 0, 0, 0, 0.925494, 0.378762, 0, -0.378762, 0.925494, 0, 0, 0)
+spring_length = 5.0
+
+[node name="Camera" type="Camera3D" parent="CameraRig/HCam/VCam/SpringArm"]
+current = true
