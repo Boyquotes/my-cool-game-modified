@@ -50,13 +50,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		v_cam.rotation.x = clamp(v_cam.rotation.x, deg_to_rad(min_camera_angle), deg_to_rad(max_camera_angle))
 
 func _process(delta: float) -> void:
-	player_movement(delta)
+	pass
 	
 	#rotate the character collider to face the direction of the user input
 	if (velocity != Vector3.ZERO):
 		collider.rotation.y = lerp_angle(collider.rotation.y, atan2(-direction.x, -direction.z), turn_speed * delta)
 	
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	player_movement(delta)
 	pass
 
 ## Calculates player movement and moves the character body
