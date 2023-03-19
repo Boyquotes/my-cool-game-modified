@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://ca722q22tsjn6"]
+
+[ext_resource type="Script" path="res://scenes/fps_test/fps_test.gd" id="1_4pbb7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8waes"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g41td"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_no0kx"]
+albedo_color = Color(0.74902, 0.345098, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_id4wu"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.334
+
+[node name="fps_test" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75601, 0, 0)
+collision_mask = 31
+script = ExtResource("1_4pbb7")
+sensitivity = 5.0
+first_person_jitter_lerp_weight = 25.0
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_8waes")
+
+[node name="mesh_nodes" type="Node3D" parent="collision"]
+top_level = true
+
+[node name="mesh" type="MeshInstance3D" parent="collision/mesh_nodes"]
+gi_mode = 2
+mesh = SubResource("CapsuleMesh_g41td")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_no0kx")
+
+[node name="gun_test_mesh" type="MeshInstance3D" parent="collision/mesh_nodes"]
+transform = Transform3D(1, 0, 0, 0, -0.118889, 0.992908, 0, -0.992908, -0.118889, 0.352781, 0.365603, -0.46237)
+mesh = SubResource("CylinderMesh_id4wu")
+skeleton = NodePath("../../..")
+
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51462, 0)
+top_level = true
+
+[node name="Camera3D" type="Camera3D" parent="head"]
+current = true

@@ -16,9 +16,9 @@ size = Vector3(0.442, 0.149, 0.525)
 albedo_color = Color(1, 0.831373, 0.352941, 1)
 
 [node name="Player" type="CharacterBody3D"]
-collision_mask = 3
+collision_mask = 30
 script = ExtResource("1_o4wmn")
-mouse_sensitivity = 0.25
+mouse_sensitivity = 25.0
 max_camera_angle = 60.0
 min_camera_angle = -60.0
 speed = 5.0
@@ -26,22 +26,28 @@ jump_velocity = 13.0
 run_multiplier = 2.0
 gravity_acceleration = 3.0
 turn_speed = 10.0
+third_person_jitter_lerp_weight = 40.0
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_jxeii")
 
-[node name="Mesh" type="MeshInstance3D" parent="Collider"]
+[node name="mesh_nodes" type="Node3D" parent="Collider"]
+top_level = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Collider/mesh_nodes"]
 mesh = SubResource("CapsuleMesh_yksye")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_c4rkw")
 
-[node name="Eyes" type="MeshInstance3D" parent="Collider"]
+[node name="Eyes" type="MeshInstance3D" parent="Collider/mesh_nodes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.486318, -0.574394)
 mesh = SubResource("BoxMesh_joniw")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_2bftd")
 
 [node name="CameraRig" type="Node3D" parent="."]
+top_level = true
 
 [node name="HCam" type="Node3D" parent="CameraRig"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47028, 0)
@@ -50,7 +56,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47028, 0)
 
 [node name="SpringArm" type="SpringArm3D" parent="CameraRig/HCam/VCam"]
 transform = Transform3D(1, 0, 0, 0, 0.925494, 0.378762, 0, -0.378762, 0.925494, 0, 0, 0)
-collision_mask = 3
+collision_mask = 7
 spring_length = 5.0
 
 [node name="Camera" type="Camera3D" parent="CameraRig/HCam/VCam/SpringArm"]
