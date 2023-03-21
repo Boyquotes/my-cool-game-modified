@@ -48,7 +48,7 @@ func _input(event):
 
 #Logic for unhandled events
 func _unhandled_input(event):
-	#only move camera is mouse is captured to window
+	#only move camera is mouse is captured to window. Also stops camera from suddenlg moving with centred mouse.
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 		return
 	
@@ -64,8 +64,8 @@ func _process(delta: float):
 		mesh_nodes.rotation.y = lerp_angle(mesh_nodes.rotation.y, atan2(-direction.x, -direction.z), turn_speed * delta)
 	
 	#Solution for removing mesh jitter - make certain nodes top level and lerp positions
-	mesh_nodes.transform.origin = lerp(mesh_nodes.transform.origin, transform.origin - mesh_nodes_offset, third_person_jitter_lerp_weight * delta)
-	camera_rig.transform.origin = lerp(camera_rig.transform.origin, transform.origin - camera_rig_offset, third_person_jitter_lerp_weight * delta)
+	mesh_nodes.transform.origin = damp(mesh_nodes.transform.origin, transform.origin - mesh_nodes_offset, third_person_jitter_lerp_weight, delta)
+	camera_rig.transform.origin = damp(camera_rig.transform.origin, transform.origin - camera_rig_offset, third_person_jitter_lerp_weight, delta)
 	
 func _physics_process(delta: float):
 	player_movement(delta)
@@ -105,3 +105,6 @@ func _change_scene(_body):
 	#get_tree().change_scene_to_packed(other_scene)
 	#SaveManagement.save_game()
 	pass
+
+func damp(source, target, smoothing, dt):
+	return lerp(source, target, 1 - exp(-smoothing * dt))

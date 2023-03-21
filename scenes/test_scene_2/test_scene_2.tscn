@@ -48,7 +48,7 @@ shadow_enabled = true
 environment = SubResource("Environment_yi78k")
 
 [node name="fps_test" parent="." instance=ExtResource("3_txybg")]
-jitter_lerp_weight = 25.0
+mouse_sensitivity = 5.0
 
 [node name="box" type="StaticBody3D" parent="."]
 

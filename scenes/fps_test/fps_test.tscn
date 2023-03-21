@@ -18,10 +18,10 @@ height = 0.334
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75601, 0, 0)
 collision_mask = 31
 script = ExtResource("1_4pbb7")
-sensitivity = 5.0
 first_person_jitter_lerp_weight = 25.0
 
 [node name="collision" type="CollisionShape3D" parent="."]
+process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_8waes")
 
@@ -29,13 +29,14 @@ shape = SubResource("CapsuleShape3D_8waes")
 top_level = true
 
 [node name="mesh" type="MeshInstance3D" parent="collision/mesh_nodes"]
+visible = false
 gi_mode = 2
 mesh = SubResource("CapsuleMesh_g41td")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_no0kx")
 
 [node name="gun_test_mesh" type="MeshInstance3D" parent="collision/mesh_nodes"]
-transform = Transform3D(1, 0, 0, 0, -0.118889, 0.992908, 0, -0.992908, -0.118889, 0.352781, 0.365603, -0.46237)
+transform = Transform3D(1, 0, 0, 0, -0.118889, 0.992908, 0, -0.992908, -0.118889, 0.352781, 0.221106, -0.490498)
 mesh = SubResource("CylinderMesh_id4wu")
 skeleton = NodePath("../../..")
 
