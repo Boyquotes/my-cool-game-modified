@@ -1,6 +1,6 @@
 extends Control
 
-@onready var label = $GridContainer/Label
+@onready var label: Label = $Label
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

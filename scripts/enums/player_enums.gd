@@ -1,0 +1,13 @@
+extends Node
+
+enum PlayerState {
+	IDLE,
+	WALKING,
+	RUNNING,
+	STOPPING,
+	JUMPING,
+	FALLING,
+	AIMING,
+	SHOOTING,
+	INTERACTING
+}

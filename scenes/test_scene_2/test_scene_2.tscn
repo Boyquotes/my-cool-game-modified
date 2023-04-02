@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://itvayhveainu"]
+[gd_scene load_steps=11 format=3 uid="uid://b5q0jtu66ektg"]
 
 [ext_resource type="Texture2D" uid="uid://ctyc88w8gxw4i" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="1_l2irx"]
 [ext_resource type="Material" uid="uid://d2sqx8wapre40" path="res://materials/blockout/dark_prototype.tres" id="2_pagnv"]
 [ext_resource type="PackedScene" uid="uid://ca722q22tsjn6" path="res://scenes/fps_test/fps_test.tscn" id="3_txybg"]
+[ext_resource type="PackedScene" uid="uid://c8xeou8xgy8q1" path="res://scenes/sphere_test/sphere.tscn" id="4_umdgt"]
+[ext_resource type="Script" path="res://scripts/godot-smoother-node-main/smoother.gd" id="5_2aw8l"]
+[ext_resource type="PackedScene" uid="uid://cn3pxahw6gd6w" path="res://scenes/box_test/box.tscn" id="5_4bjug"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h5v7q"]
 sky_top_color = Color(0.223529, 0.423529, 0.54902, 1)
@@ -21,16 +24,7 @@ ssao_enabled = true
 ssil_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_rh3e7"]
-size = Vector3(2, 2, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gniv3"]
-emission_enabled = true
-emission = Color(1, 0.533333, 0.121569, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_84hgr"]
-size = Vector3(2, 2, 2)
+fog_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_00m0k"]
 albedo_texture = ExtResource("1_l2irx")
@@ -48,25 +42,13 @@ shadow_enabled = true
 environment = SubResource("Environment_yi78k")
 
 [node name="fps_test" parent="." instance=ExtResource("3_txybg")]
-mouse_sensitivity = 5.0
-
-[node name="box" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="box"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_rh3e7")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="box/CollisionShape3D"]
-material_override = SubResource("StandardMaterial3D_gniv3")
-mesh = SubResource("BoxMesh_84hgr")
-skeleton = NodePath("../..")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 material_override = SubResource("StandardMaterial3D_00m0k")
 use_collision = true
 collision_layer = 2
-collision_mask = 11
+collision_mask = 9
 size = Vector3(68.0361, 2, 87.2664)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
@@ -83,3 +65,15 @@ use_collision = true
 collision_layer = 4
 collision_mask = 9
 size = Vector3(1, 12.1053, 66.429)
+
+[node name="sphere" parent="." instance=ExtResource("4_umdgt")]
+continuous_cd = true
+freeze_mode = 1
+
+[node name="Smoother" type="Node" parent="."]
+script = ExtResource("5_2aw8l")
+
+[node name="box" parent="." instance=ExtResource("5_4bjug")]
+
+[node name="box2" parent="." instance=ExtResource("5_4bjug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.30069, 1, -5.33512)

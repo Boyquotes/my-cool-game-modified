@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://ca722q22tsjn6"]
+[gd_scene load_steps=8 format=3 uid="uid://ca722q22tsjn6"]
 
 [ext_resource type="Script" path="res://scenes/fps_test/fps_test.gd" id="1_4pbb7"]
+[ext_resource type="PackedScene" uid="uid://b78jutspycan4" path="res://scenes/gameplay_ui/gameplay_ui.tscn" id="2_t8l5q"]
+[ext_resource type="Shader" uid="uid://cxhox02qr6igg" path="res://shaders/outline_shader/outline_shader.tres" id="2_vkpcv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8waes"]
 
@@ -18,7 +20,10 @@ height = 0.334
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75601, 0, 0)
 collision_mask = 31
 script = ExtResource("1_4pbb7")
+mouse_sensitivity = 5.0
 first_person_jitter_lerp_weight = 25.0
+throw_strength = 5.0
+outline_shader = ExtResource("2_vkpcv")
 
 [node name="collision" type="CollisionShape3D" parent="."]
 process_mode = 3
@@ -26,7 +31,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_8waes")
 
 [node name="mesh_nodes" type="Node3D" parent="collision"]
-top_level = true
 
 [node name="mesh" type="MeshInstance3D" parent="collision/mesh_nodes"]
 visible = false
@@ -42,7 +46,16 @@ skeleton = NodePath("../../..")
 
 [node name="head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51462, 0)
-top_level = true
 
-[node name="Camera3D" type="Camera3D" parent="head"]
+[node name="camera" type="Camera3D" parent="head"]
 current = true
+
+[node name="raycast_interaction" type="RayCast3D" parent="head/camera"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -5, 0)
+collision_mask = 24
+
+[node name="raycast_hold_position" type="Node3D" parent="head/camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.69859)
+
+[node name="ui_control" parent="." instance=ExtResource("2_t8l5q")]

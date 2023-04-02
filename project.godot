@@ -11,19 +11,25 @@ config_version=5
 [application]
 
 config/name="my-cool-game-modified"
-run/main_scene="res://scenes/test_camera_scene/test_camera_scene.tscn"
+run/main_scene="res://scenes/test_scene_2/test_scene_2.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-SaveManagement="*res://scripts/save_management.gd"
+SaveManagement="*res://scripts/data/save_management.gd"
+PlayerEnums="*res://scripts/enums/player_enums.gd"
+Common="*res://scripts/common/common.gd"
 
 [display]
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/smoothing/plugin.cfg")
 
 [input]
 

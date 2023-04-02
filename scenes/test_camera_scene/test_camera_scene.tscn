@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://0cmhrw8alqiy" path="res://scenes/player/player.tscn" id="1_121ss"]
 [ext_resource type="Material" uid="uid://dng3l2myaclcr" path="res://materials/blockout/red_material.tres" id="1_glyb8"]
 [ext_resource type="PackedScene" uid="uid://b78jutspycan4" path="res://scenes/gameplay_ui/gameplay_ui.tscn" id="2_fix6t"]
-[ext_resource type="PackedScene" uid="uid://itvayhveainu" path="res://scenes/test_scene_2/test_scene_2.tscn" id="4_j0m4p"]
+[ext_resource type="PackedScene" uid="uid://b5q0jtu66ektg" path="res://scenes/test_scene_2/test_scene_2.tscn" id="4_j0m4p"]
 [ext_resource type="Material" uid="uid://d2sqx8wapre40" path="res://materials/blockout/dark_prototype.tres" id="4_lj3r8"]
 [ext_resource type="Material" uid="uid://swfpq0i4syjm" path="res://materials/blockout/green_material.tres" id="7_325fy"]
 

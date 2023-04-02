@@ -1,8 +1,5 @@
 extends CharacterBody3D
 
-#enums
-enum PlayerState { IDLE, WALKING, RUNNING, STOPPING, JUMPING, FALLING, AIMING, SHOOTING, INTERACTING }
-
 #exported variables
 @export var mouse_sensitivity: float
 @export var max_camera_angle: float
@@ -14,6 +11,7 @@ enum PlayerState { IDLE, WALKING, RUNNING, STOPPING, JUMPING, FALLING, AIMING, S
 @export var turn_speed: float
 @export var third_person_jitter_lerp_weight: float
 @export var other_scene: PackedScene
+@export var throw_strength: float
 
 var h_camera_rotation: Vector3
 var v_camera_rotation: Vector3
@@ -34,7 +32,7 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	#Set movement state to IDLE
-	movement_state = PlayerState.IDLE
+	movement_state = PlayerEnums.PlayerState.IDLE
 
 func _input(event):
 	if event.is_action_pressed("pause"):
@@ -44,7 +42,7 @@ func _input(event):
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		
 	if event.is_action_pressed("run"):
-		movement_state = PlayerState.RUNNING
+		movement_state = PlayerEnums.PlayerState.RUNNING
 
 #Logic for unhandled events
 func _unhandled_input(event):
@@ -86,7 +84,7 @@ func player_movement(delta: float):
 	
 	#sprinting and walking speeds
 	if (direction != Vector3.ZERO and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
-		if (movement_state == PlayerState.RUNNING):
+		if (movement_state == PlayerEnums.PlayerState.RUNNING):
 			velocity.x = direction.x * run_multiplier * speed
 			velocity.z = direction.z * run_multiplier * speed
 		else:
@@ -94,7 +92,7 @@ func player_movement(delta: float):
 			velocity.z = direction.z * speed
 	#TODO - slow down the player if they let go of the movement buttons	
 	else:
-		movement_state = PlayerState.IDLE
+		movement_state = PlayerEnums.PlayerState.IDLE
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
 	

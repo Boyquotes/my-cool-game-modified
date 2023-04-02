@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://0cmhrw8alqiy"]
+[gd_scene load_steps=8 format=3 uid="uid://0cmhrw8alqiy"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_o4wmn"]
 
@@ -14,6 +14,8 @@ size = Vector3(0.442, 0.149, 0.525)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2bftd"]
 albedo_color = Color(1, 0.831373, 0.352941, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j2l8t"]
 
 [node name="Player" type="CharacterBody3D"]
 collision_mask = 30
@@ -33,7 +35,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_jxeii")
 
 [node name="mesh_nodes" type="Node3D" parent="Collider"]
-top_level = true
 
 [node name="Mesh" type="MeshInstance3D" parent="Collider/mesh_nodes"]
 mesh = SubResource("CapsuleMesh_yksye")
@@ -57,6 +58,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47028, 0)
 [node name="SpringArm" type="SpringArm3D" parent="CameraRig/HCam/VCam"]
 transform = Transform3D(1, 0, 0, 0, 0.925494, 0.378762, 0, -0.378762, 0.925494, 0, 0, 0)
 collision_mask = 7
+shape = SubResource("SphereShape3D_j2l8t")
 spring_length = 5.0
 
 [node name="Camera" type="Camera3D" parent="CameraRig/HCam/VCam/SpringArm"]
