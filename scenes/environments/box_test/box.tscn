@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://dwbxkaj0i3d8k"]
+
+[ext_resource type="Script" path="res://scenes/environments/box_test/box.gd" id="1_71gcw"]
+[ext_resource type="Shader" uid="uid://cxhox02qr6igg" path="res://shaders/outline_shader/outline_shader.tres" id="2_x303m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ml38s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1frew"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_442ok"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_x303m")
+shader_parameter/line_thickness = 0.02
+shader_parameter/focused = false
+shader_parameter/outline_alpha = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x8067"]
+resource_local_to_scene = true
+next_pass = SubResource("ShaderMaterial_442ok")
+albedo_color = Color(0.498039, 0.478431, 1, 1)
+
+[node name="box" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -5.33512)
+collision_layer = 8
+script = ExtResource("1_71gcw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ml38s")
+
+[node name="mesh_nodes" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mesh_nodes"]
+transform = Transform3D(1.00152, 0, 0, 0, 1.00152, 0, 0, 0, 1.00152, 0, 0, 0)
+mesh = SubResource("BoxMesh_1frew")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_x8067")

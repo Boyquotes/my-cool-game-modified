@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://cbppibn1ybiak"]
+
+[ext_resource type="Script" path="res://scenes/environments/sphere_test/sphere.gd" id="1_x55k0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_suujl"]
+radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gniv3"]
+emission_enabled = true
+emission = Color(1, 0.533333, 0.121569, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_4juas"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="PrismMesh" id="PrismMesh_g6oit"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t00tr"]
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_6vl07"]
+
+[node name="sphere" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64905, 0)
+collision_layer = 8
+collision_mask = 15
+mass = 0.05
+script = ExtResource("1_x55k0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_suujl")
+
+[node name="mesh_target" type="Node3D" parent="."]
+
+[node name="mesh_nodes" type="Node3D" parent="."]
+top_level = true
+
+[node name="mesh" type="MeshInstance3D" parent="mesh_nodes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_gniv3")
+gi_mode = 2
+mesh = SubResource("SphereMesh_4juas")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mesh_nodes"]
+transform = Transform3D(0.305461, 0, 0, 0, 0.506703, 0, 0, 0, 1.83372, 0, 1.34139, 0.728192)
+mesh = SubResource("PrismMesh_g6oit")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="mesh_nodes"]
+transform = Transform3D(1.80844, 0, 0, 0, 0.159898, 0, 0, 0, 1.95868, 0, 0.0799301, 0)
+material_override = SubResource("StandardMaterial3D_t00tr")
+mesh = SubResource("BoxMesh_6vl07")
+skeleton = NodePath("../../CollisionShape3D")

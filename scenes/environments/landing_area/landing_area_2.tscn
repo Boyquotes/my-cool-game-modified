@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" uid="uid://0ytuvhsdefsk" path="res://scenes/environments/landing_area/landing_area.glb" id="1_qikwl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rml52"]
+albedo_color = Color(0.454902, 1, 0, 1)
+emission_enabled = true
+emission = Color(0.368627, 1, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1akfw"]
+albedo_color = Color(0.894118, 0.894118, 0.894118, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_acqda"]
+size = Vector3(36.6737, 0.904307, 36.6743)
+
+[node name="landing_area" instance=ExtResource("1_qikwl")]
+
+[node name="Plane" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_rml52")
+surface_material_override/1 = SubResource("StandardMaterial3D_1akfw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.450534, 0)
+collision_layer = 2
+collision_mask = 9
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_acqda")

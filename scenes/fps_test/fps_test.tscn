@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://ca722q22tsjn6"]
 
-[ext_resource type="Script" path="res://scenes/fps_test/fps_test.gd" id="1_4pbb7"]
-[ext_resource type="PackedScene" uid="uid://b78jutspycan4" path="res://scenes/gameplay_ui/gameplay_ui.tscn" id="2_t8l5q"]
-[ext_resource type="Shader" uid="uid://cxhox02qr6igg" path="res://shaders/outline_shader/outline_shader.tres" id="2_vkpcv"]
+[ext_resource type="Script" path="res://scenes/fps_test/fps_test.gd" id="1_uqhs5"]
+[ext_resource type="PackedScene" uid="uid://blrr8gypflybh" path="res://scenes/ui/gameplay_ui/gameplay_ui.tscn" id="2_jij27"]
+[ext_resource type="Script" path="res://addons/smoothing/smoothing.gd" id="3_5ecdd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8waes"]
 
@@ -17,45 +17,46 @@ bottom_radius = 0.1
 height = 0.334
 
 [node name="fps_test" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75601, 0, 0)
 collision_mask = 31
-script = ExtResource("1_4pbb7")
+script = ExtResource("1_uqhs5")
 mouse_sensitivity = 5.0
-first_person_jitter_lerp_weight = 25.0
 throw_strength = 5.0
-outline_shader = ExtResource("2_vkpcv")
 
 [node name="collision" type="CollisionShape3D" parent="."]
 process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_8waes")
 
-[node name="mesh_nodes" type="Node3D" parent="collision"]
+[node name="ui_control" parent="." instance=ExtResource("2_jij27")]
 
-[node name="mesh" type="MeshInstance3D" parent="collision/mesh_nodes"]
+[node name="smoothing_node" type="Node3D" parent="."]
+script = ExtResource("3_5ecdd")
+
+[node name="head" type="Node3D" parent="smoothing_node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51462, 0)
+
+[node name="camera" type="Camera3D" parent="smoothing_node/head"]
+current = true
+fov = 90.0
+
+[node name="raycast_interaction" type="RayCast3D" parent="smoothing_node/head/camera"]
+target_position = Vector3(0, 0, -5)
+collision_mask = 24
+
+[node name="raycast_hold_position" type="Node3D" parent="smoothing_node/head/camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.69859)
+
+[node name="mesh_nodes" type="Node3D" parent="smoothing_node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="mesh" type="MeshInstance3D" parent="smoothing_node/mesh_nodes"]
 visible = false
 gi_mode = 2
 mesh = SubResource("CapsuleMesh_g41td")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_no0kx")
 
-[node name="gun_test_mesh" type="MeshInstance3D" parent="collision/mesh_nodes"]
+[node name="gun_test_mesh" type="MeshInstance3D" parent="smoothing_node/mesh_nodes"]
 transform = Transform3D(1, 0, 0, 0, -0.118889, 0.992908, 0, -0.992908, -0.118889, 0.352781, 0.221106, -0.490498)
 mesh = SubResource("CylinderMesh_id4wu")
 skeleton = NodePath("../../..")
-
-[node name="head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51462, 0)
-
-[node name="camera" type="Camera3D" parent="head"]
-current = true
-
-[node name="raycast_interaction" type="RayCast3D" parent="head/camera"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-target_position = Vector3(0, -5, 0)
-collision_mask = 24
-
-[node name="raycast_hold_position" type="Node3D" parent="head/camera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.69859)
-
-[node name="ui_control" parent="." instance=ExtResource("2_t8l5q")]

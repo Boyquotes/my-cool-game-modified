@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://qcmndi8tovig"]
+
+[ext_resource type="PackedScene" uid="uid://b1lxi62eb8ivn" path="res://scenes/environments/laser/laser.tscn" id="1_dybpw"]
+
+[node name="level_0" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.517699, -0.359898, 0.776184, 1.83444e-08, 0.90722, 0.420656, -0.855563, -0.217773, 0.469667, 5.64941, 3.05541, 0.308508)
+
+[node name="laser" parent="." instance=ExtResource("1_dybpw")]

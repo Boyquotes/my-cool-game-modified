@@ -1,0 +1,11 @@
+Model Information:
+* title:	Sci-Fi guns evolution pack
+* source:	https://sketchfab.com/3d-models/sci-fi-guns-evolution-pack-2ebddcf0eba04219a2c9ba95c8eb2744
+* author:	Yo.Ri (https://sketchfab.com/grox777)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Sci-Fi guns evolution pack" (https://sketchfab.com/3d-models/sci-fi-guns-evolution-pack-2ebddcf0eba04219a2c9ba95c8eb2744) by Yo.Ri (https://sketchfab.com/grox777) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

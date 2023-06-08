@@ -5,33 +5,34 @@ extends CharacterBody3D
 ## This script is used to controll all of the character
 ## game actions and behaviour
 
+#constants
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+var picked_up_item: Node3D
+var focused_item: Node3D
+var direction: Vector3
+var head_global_transform_previous: Transform3D
+var head_global_transform_current: Transform3D
 
 #export variables
 @export var mouse_sensitivity: float
 @export var controller_sensitivity: float
-@export var first_person_jitter_lerp_weight: float
 @export var throw_strength: float
 
+
 #node references
-@onready var head: Node3D = $head
+@onready var head: Node3D = $smoothing_node/head
 @onready var collision: CollisionShape3D = $collision 
-@onready var mesh_nodes: Node3D = $collision/mesh_nodes
-@onready var raycast: RayCast3D = $head/camera/raycast_interaction
-@onready var raycast_hold_position = $head/camera/raycast_hold_position
-@onready var head_offset: Vector3 = transform.origin - head.transform.origin
-@onready var mesh_nodes_offset: Vector3 = transform.origin - mesh_nodes.transform.origin
+@onready var mesh_nodes: Node3D = $smoothing_node/mesh_nodes
+@onready var raycast: RayCast3D = $smoothing_node/head/camera/raycast_interaction
+@onready var raycast_hold_position = $smoothing_node/head/camera/raycast_hold_position
 
-var picked_up_item: Node3D
-var focused_item: Node3D
-
-var direction: Vector3
 
 func _ready():
+	#Engine.max_fps = 10
 	#Capture the mouse for user input
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -50,6 +51,7 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		#horizontal rotation
 		head.rotation.y -= (event.relative.x * 0.01 * (mouse_sensitivity/100))
+		mesh_nodes.rotation.y = head.rotation.y
 		collision.rotation.y = head.rotation.y
 		
 		#vertical rotation
@@ -78,7 +80,7 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 	
-	if Input.is_action_just_released("interact"):
+	if Input.is_action_just_pressed("interact"):
 		if raycast.is_colliding():
 			if picked_up_item == null:
 				select_item_for_picking_up()
@@ -110,8 +112,16 @@ func select_item_for_dropping():
 ## the interactable object
 func highlight_item():
 	if raycast.is_colliding():
-		focused_item = raycast.get_collider()
-		if focused_item.collision_layer == 8:
+		if focused_item:
+			if focused_item != raycast.get_collider():
+				if ("focused" in focused_item): ##unhilight old item
+					focused_item.focused = false
+					focused_item = null
+					focused_item = raycast.get_collider()
+				if ("focused" in focused_item): ##highlight new item
+					focused_item.focused = true
+		else:
+			focused_item = raycast.get_collider()
 			if ("focused" in focused_item):
 				focused_item.focused = true
 	else:

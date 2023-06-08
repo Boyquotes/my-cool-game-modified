@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1lxi62eb8ivn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qgg3h"]
+size = Vector3(2.5, 2.5, 0.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c3tah"]
+points = PackedVector3Array(1.25, 1.25, 0.25, 1.25, 1.25, -0.25, -1.25, 1.25, 0.25, 1.25, -1.25, 0.25, 1.25, -1.25, -0.25, -1.25, 1.25, -0.25, -1.25, -1.25, 0.25, -1.25, -1.25, -0.25)
+
+[node name="laser" type="RigidBody3D"]
+collision_layer = 8
+collision_mask = 15
+freeze = true
+freeze_mode = 1
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Node3D2" type="Node3D" parent="."]
+
+[node name="laser_body_mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_qgg3h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_c3tah")

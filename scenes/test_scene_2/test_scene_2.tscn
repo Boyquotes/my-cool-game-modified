@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://b5q0jtu66ektg"]
+[gd_scene load_steps=11 format=3 uid="uid://n32o4h87wfpr"]
 
-[ext_resource type="Texture2D" uid="uid://ctyc88w8gxw4i" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="1_l2irx"]
-[ext_resource type="Material" uid="uid://d2sqx8wapre40" path="res://materials/blockout/dark_prototype.tres" id="2_pagnv"]
-[ext_resource type="PackedScene" uid="uid://ca722q22tsjn6" path="res://scenes/fps_test/fps_test.tscn" id="3_txybg"]
-[ext_resource type="PackedScene" uid="uid://c8xeou8xgy8q1" path="res://scenes/sphere_test/sphere.tscn" id="4_umdgt"]
-[ext_resource type="Script" path="res://scripts/godot-smoother-node-main/smoother.gd" id="5_2aw8l"]
-[ext_resource type="PackedScene" uid="uid://cn3pxahw6gd6w" path="res://scenes/box_test/box.tscn" id="5_4bjug"]
+[ext_resource type="PackedScene" uid="uid://ca722q22tsjn6" path="res://scenes/fps_test/fps_test.tscn" id="1_u5etq"]
+[ext_resource type="Texture2D" uid="uid://ctyc88w8gxw4i" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="2_7bwac"]
+[ext_resource type="Material" uid="uid://d2sqx8wapre40" path="res://materials/blockout/dark_prototype.tres" id="3_gajv7"]
+[ext_resource type="PackedScene" uid="uid://cbppibn1ybiak" path="res://scenes/environments/sphere_test/sphere.tscn" id="4_635ed"]
+[ext_resource type="PackedScene" uid="uid://dwbxkaj0i3d8k" path="res://scenes/environments/box_test/box.tscn" id="5_6x33s"]
+[ext_resource type="PackedScene" path="res://scenes/environments/landing_area/landing_area_2.tscn" id="6_suutl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h5v7q"]
 sky_top_color = Color(0.223529, 0.423529, 0.54902, 1)
@@ -27,7 +27,7 @@ glow_enabled = true
 fog_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_00m0k"]
-albedo_texture = ExtResource("1_l2irx")
+albedo_texture = ExtResource("2_7bwac")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
@@ -41,7 +41,8 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yi78k")
 
-[node name="fps_test" parent="." instance=ExtResource("3_txybg")]
+[node name="fps_test" parent="." instance=ExtResource("1_u5etq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.78897, 0, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -53,27 +54,28 @@ size = Vector3(68.0361, 2, 87.2664)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.143, 6.05264, 0.650225)
-material_override = ExtResource("2_pagnv")
+material_override = ExtResource("3_gajv7")
 use_collision = true
 collision_layer = 4
+collision_mask = 9
 size = Vector3(1, 12.1053, 82.7052)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.15502, 6.05264, -40.1671)
-material_override = ExtResource("2_pagnv")
+material_override = ExtResource("3_gajv7")
 use_collision = true
 collision_layer = 4
 collision_mask = 9
 size = Vector3(1, 12.1053, 66.429)
 
-[node name="sphere" parent="." instance=ExtResource("4_umdgt")]
+[node name="sphere" parent="." instance=ExtResource("4_635ed")]
 continuous_cd = true
 freeze_mode = 1
 
-[node name="Smoother" type="Node" parent="."]
-script = ExtResource("5_2aw8l")
+[node name="box" parent="." instance=ExtResource("5_6x33s")]
 
-[node name="box" parent="." instance=ExtResource("5_4bjug")]
-
-[node name="box2" parent="." instance=ExtResource("5_4bjug")]
+[node name="box2" parent="." instance=ExtResource("5_6x33s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.30069, 1, -5.33512)
+
+[node name="landing_area" parent="." instance=ExtResource("6_suutl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.4159, 0.716091, 12.9693)
